@@ -1,0 +1,28 @@
+feign:
+  hystrix:
+    enabled: false
+clientApp:
+  feign:
+    client:
+      config:
+        default:
+          connectTimeout: 5000
+          readTimeout: 5000
+server:
+  port: 8081
+spring:
+  main:
+    allow-circular-references: true
+clients:
+  url: http://localhost:8080
+  datasource:
+    url: jdbc:postgresql://localhost:5432/Clients
+    initialization-mode: always
+    schema: classpath*:database/initDB.sql
+    data: classpath*:database/populateDB.sql
+  username: root
+  password: 123
+  driver-class-name: org.postgresql.Driver
+  jpa:
+    database: postgres
+  database-platform: org.hibernate.dialect.PostgreSQL10Dialect
