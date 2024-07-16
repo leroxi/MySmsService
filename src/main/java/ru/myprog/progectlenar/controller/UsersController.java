@@ -1,6 +1,7 @@
 package ru.myprog.progectlenar.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -8,8 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import ru.myprog.progectlenar.kafka.KafkaProducer;
 import ru.myprog.progectlenar.model.ClientInfo;
-import ru.myprog.progectlenar.repository.InMemoryClientsRep;
-import ru.myprog.progectlenar.service.implementor.ClientService;
+import ru.myprog.progectlenar.service.implementor.ClientServiceImpl;
 
 import java.util.List;
 
@@ -18,35 +18,33 @@ import java.util.List;
 @EnableFeignClients
 @RequestMapping("/api/v2")
 
-public class UsersController {
-    private final ClientService clientService;
+public class UsersController  {
+    private final ClientServiceImpl clientService;
     private final KafkaProducer kafkaProducer;
-    private final InMemoryClientsRep clientsRep;
     @Value("${app.discount}")
     private int discount;
 
     @Autowired
-    public UsersController(ClientService clientService, KafkaProducer kafkaProducer, InMemoryClientsRep clientsRep) {
+    public UsersController(ClientServiceImpl clientService, KafkaProducer kafkaProducer) {
         this.clientService = clientService;
         this.kafkaProducer = kafkaProducer;
-        this.clientsRep = clientsRep;
     }
 
     @GetMapping("/getClients")
     public List<ClientInfo> getAllClients() {
-        List<ClientInfo> clients = clientService.getFilteredClients();
+        List<ClientInfo> clients = clientService.getAllClients();
         System.out.println("Филтроваенные : " + clients);
         return clients;
     }
 
     @GetMapping("/getClient/{userId}")
-    public ClientInfo getUserById(@PathVariable int userId) {
-        return clientService.getFilteredClientById(userId);
+    public ClientInfo getClientById(@PathVariable int clientId) {
+        return clientService.getClientById(clientId);
     }
     @Scheduled(cron = "0 0 0-19 * * *")
     @PostMapping("/kafka/send")
     public String send(@RequestParam int id) {
-        ClientInfo client = clientsRep.getClientById(id);
+        ClientInfo client = clientService.getClientById(id);
         kafkaProducer.sendMessage("phone : " + client.getPhone() + "\n" + "message " + client.getFullName() + ", в этом месяце для вас действует скидка" + discount +"%");
         return "Success";
     }

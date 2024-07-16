@@ -19,7 +19,7 @@ clients:
     url: jdbc:postgresql://localhost:5432/Clients
     initialization-mode: always
     schema: classpath*:database/initDB.sql
-#    data: classpath*:database/populateDB.sql
+    data: classpath*:database/populateDB.sql
   username: root
   password: 123
   driver-class-name: org.postgresql.Driver
