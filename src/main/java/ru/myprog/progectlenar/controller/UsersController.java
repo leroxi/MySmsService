@@ -1,5 +1,7 @@
 package ru.myprog.progectlenar.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -17,7 +19,7 @@ import java.util.stream.Collectors;
 @RestController
 @EnableFeignClients
 @RequestMapping("/api/v2")
-
+@Api(description = "Контроллер SMS сервиса адаптера")
 public class UsersController {
     private final ClientServiceImpl clientService;
     private final KafkaProducer kafkaProducer;
@@ -31,6 +33,7 @@ public class UsersController {
     }
 
     @GetMapping("/getClients")
+    @ApiOperation("Получение списка всех клиентов")
     public List<ClientInfo> getAllClients() {
         List<ClientInfo> clients = clientService.getAllClients();
         System.out.println("Филтроваенные : " + clients);
@@ -38,6 +41,7 @@ public class UsersController {
     }
 
     @GetMapping("/getClient/{userId}")
+    @ApiOperation("Получение одного клиента по его ID")
     public ClientInfo getClientById(@PathVariable int id) {
         return clientService.getClientById(id);
     }
