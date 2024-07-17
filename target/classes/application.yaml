@@ -9,20 +9,21 @@ clientApp:
           connectTimeout: 5000
           readTimeout: 5000
 server:
-  port: 8081
+  port: 8080
 spring:
   main:
     allow-circular-references: true
-clients:
-  url: http://localhost:8080
   datasource:
     url: jdbc:postgresql://localhost:5432/Clients
-    initialization-mode: always
-    schema: classpath*:database/initDB.sql
-    data: classpath*:database/populateDB.sql
-  username: root
-  password: 123
-  driver-class-name: org.postgresql.Driver
-  jpa:
-    database: postgres
-  database-platform: org.hibernate.dialect.PostgreSQL10Dialect
+    username: root
+    password: 123
+    driver-class-name: org.postgresql.Driver
+    sql:
+      init:
+        mode: always
+        schema-locations: classpath:database/initDB.sql
+        data-locations: classpath:database/populateDB.sql
+app:
+  discount: 10
+clients:
+  url: http://localhost:8081

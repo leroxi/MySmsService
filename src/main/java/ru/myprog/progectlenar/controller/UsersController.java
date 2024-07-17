@@ -1,7 +1,6 @@
 package ru.myprog.progectlenar.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -12,13 +11,14 @@ import ru.myprog.progectlenar.model.ClientInfo;
 import ru.myprog.progectlenar.service.implementor.ClientServiceImpl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @EnableKafka
 @RestController
 @EnableFeignClients
 @RequestMapping("/api/v2")
 
-public class UsersController  {
+public class UsersController {
     private final ClientServiceImpl clientService;
     private final KafkaProducer kafkaProducer;
     @Value("${app.discount}")
@@ -38,14 +38,22 @@ public class UsersController  {
     }
 
     @GetMapping("/getClient/{userId}")
-    public ClientInfo getClientById(@PathVariable int clientId) {
-        return clientService.getClientById(clientId);
+    public ClientInfo getClientById(@PathVariable int id) {
+        return clientService.getClientById(id);
     }
+
     @Scheduled(cron = "0 0 0-19 * * *")
     @PostMapping("/kafka/send")
-    public String send(@RequestParam int id) {
-        ClientInfo client = clientService.getClientById(id);
-        kafkaProducer.sendMessage("phone : " + client.getPhone() + "\n" + "message " + client.getFullName() + ", в этом месяце для вас действует скидка" + discount +"%");
-        return "Success";
+    public void send() {
+        List<ClientInfo> clients = clientService.getAllClients();
+        List<ClientInfo> filteredClients = clients.stream()
+                .filter(client -> !client.isMessageSend())
+                .collect(Collectors.toList());
+        for (ClientInfo client : filteredClients) {
+            String message = client.getFullName() + ", в этом месяце для вас действует скидка " + discount + "%";
+            kafkaProducer.sendMessage("messageSMS", client.getPhone() + ": " + message);
+            client.setMessageSend(true);
+            clientService.saveClient(client);
+        }
     }
 }

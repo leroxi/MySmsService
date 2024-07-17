@@ -17,24 +17,25 @@ import java.util.stream.Collectors;
 @Service
 public class ClientServiceImpl implements ClientServiceInterface {
     private final ClientsFeignInterface clientsFeignInterface;
-    private final ClientServiceInterface clientServiceInterface;
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     @Autowired
-    public ClientServiceImpl(ClientsFeignInterface clientsFeignInterface, ClientServiceInterface clientServiceInterface) {
+    public ClientServiceImpl(ClientsFeignInterface clientsFeignInterface, ClientRepository clientRepository) {
         this.clientsFeignInterface = clientsFeignInterface;
-        this.clientServiceInterface = clientServiceInterface;
+        this.clientRepository = clientRepository;
     }
 
+    @Override
     public List<ClientInfo> getAllClients() {
         return clientRepository.findAll();
     }
 
+    @Override
     public ClientInfo getClientById(int id) {
         return clientRepository.getOne(id);
     }
 
+    @Override
     public void addAllClients(List<ClientInfo> clients) {
         clientRepository.saveAll(clients);
     }
@@ -47,5 +48,9 @@ public class ClientServiceImpl implements ClientServiceInterface {
                 .filter(client -> client.getBirthday().getMonth() == LocalDate.now().getMonth())
                 .collect(Collectors.toList());
         addAllClients(filteredClients);
+    }
+
+    public void saveClient(ClientInfo client) {
+        clientRepository.save(client);
     }
 }

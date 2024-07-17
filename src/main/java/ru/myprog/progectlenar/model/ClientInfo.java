@@ -1,26 +1,28 @@
 package ru.myprog.progectlenar.model;
 
 import jakarta.persistence.*;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 import java.time.LocalDate;
 
 @Data
-@Builder
+@Getter
+@Setter
 @Entity
+@EqualsAndHashCode
+@NoArgsConstructor
 @Table(name = "Clients")
 public class ClientInfo {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @Column(name = "fullname")
+    @Column(name = "full_name")
     private String fullName;
     @Column(name = "phone")
     private String phone;
     @Column(name = "birthday")
     private LocalDate birthday;
-    @Column(name = "messageSend")
+    @Column(name = "message_send")
     private boolean messageSend;
 }
