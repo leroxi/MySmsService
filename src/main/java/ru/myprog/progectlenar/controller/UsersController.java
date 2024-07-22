@@ -28,7 +28,7 @@ public class UsersController {
         return clients;
     }
 
-    @GetMapping("/getClient/{userId}")
+    @GetMapping("/getClient/{id}")
     @ApiOperation("Получение одного клиента по его ID")
     public ClientInfo getClientById(@PathVariable int id) {
         return clientService.getClientById(id);

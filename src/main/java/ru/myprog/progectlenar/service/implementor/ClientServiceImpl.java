@@ -3,10 +3,8 @@ package ru.myprog.progectlenar.service.implementor;
 
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ru.myprog.progectlenar.kafka.KafkaProducer;
 import ru.myprog.progectlenar.model.ClientInfo;
 import ru.myprog.progectlenar.repository.ClientRepository;
 import ru.myprog.progectlenar.service.ClientService;
@@ -14,6 +12,7 @@ import ru.myprog.progectlenar.ClientsFeignClient;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 @AllArgsConstructor
 @Service
@@ -28,7 +27,12 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientInfo getClientById(int id) {
-        return clientRepository.getOne(id);
+        Optional<ClientInfo> optionalClient = clientRepository.findById(id);
+        if (optionalClient.isPresent()) {
+            return optionalClient.get();
+        }else {
+            return null;
+        }
     }
 
     @Override
