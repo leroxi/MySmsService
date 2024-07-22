@@ -2,28 +2,24 @@
 package ru.myprog.progectlenar.service.implementor;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import ru.myprog.progectlenar.kafka.KafkaProducer;
 import ru.myprog.progectlenar.model.ClientInfo;
 import ru.myprog.progectlenar.repository.ClientRepository;
-import ru.myprog.progectlenar.service.ClientServiceInterface;
-import ru.myprog.progectlenar.service.ClientsFeignInterface;
+import ru.myprog.progectlenar.service.ClientService;
+import ru.myprog.progectlenar.ClientsFeignClient;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
+@AllArgsConstructor
 @Service
-public class ClientServiceImpl implements ClientServiceInterface {
-    private final ClientsFeignInterface clientsFeignInterface;
+public class ClientServiceImpl implements ClientService {
+    private final ClientsFeignClient clientsFeignClient;
     private final ClientRepository clientRepository;
-
-    @Autowired
-    public ClientServiceImpl(ClientsFeignInterface clientsFeignInterface, ClientRepository clientRepository) {
-        this.clientsFeignInterface = clientsFeignInterface;
-        this.clientRepository = clientRepository;
-    }
 
     @Override
     public List<ClientInfo> getAllClients() {
@@ -42,7 +38,7 @@ public class ClientServiceImpl implements ClientServiceInterface {
 
     @Scheduled(initialDelay = 3600000, fixedDelay = 3600000)
     public void updateListOfClient() {
-        List<ClientInfo> clients = clientsFeignInterface.getAllClients();
+        List<ClientInfo> clients = clientsFeignClient.getAllClients();
         List<ClientInfo> filteredClients = clients.stream()
                 .filter(client -> client.getPhone().endsWith("7"))
                 .filter(client -> client.getBirthday().getMonth() == LocalDate.now().getMonth())
@@ -53,4 +49,5 @@ public class ClientServiceImpl implements ClientServiceInterface {
     public void saveClient(ClientInfo client) {
         clientRepository.save(client);
     }
+
 }

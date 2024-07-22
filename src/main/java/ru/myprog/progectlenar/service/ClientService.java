@@ -4,7 +4,7 @@ import ru.myprog.progectlenar.model.ClientInfo;
 
 import java.util.List;
 
-public interface ClientServiceInterface {
+public interface ClientService {
     List<ClientInfo> getAllClients();
 
     ClientInfo getClientById(int id);

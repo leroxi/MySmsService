@@ -13,6 +13,19 @@ services:
     environment:
       KAFKA_ADVERTISED_HOST_NAME: localhost
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: Clients
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   app:
     depends_on:
       - kafka
@@ -20,3 +33,10 @@ services:
     restart: on-failure
     ports:
       - 8080:8080
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/Clients
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: 123
+
+volumes:
+  pgdata:
