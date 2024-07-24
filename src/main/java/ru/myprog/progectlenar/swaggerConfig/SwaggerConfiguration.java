@@ -1,5 +1,7 @@
 package ru.myprog.progectlenar.swaggerConfig;
 
+import io.swagger.v3.oas.models.OpenAPI;
+import io.swagger.v3.oas.models.info.Info;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
@@ -11,12 +13,12 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfiguration {
 
     @Bean
-    public Docket api() {
-        return new Docket(DocumentationType.SWAGGER_2)
-                .select()
-                .apis(RequestHandlerSelectors.any())
-                .paths(PathSelectors.any())
-                .build();
+    public OpenAPI customOpenAPI() {
+        return new OpenAPI()
+                .info(new Info()
+                        .title("SMS Service API")
+                        .version("2.0")
+                        .description("Контроллер SMS сервиса адаптера"));
 
     }
 }
