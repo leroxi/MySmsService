@@ -10,6 +10,8 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableFeignClients
 @EnableScheduling
 @EnableKafka
+// todo ну серьёзно?)))
+// todo progggggect
 public class ProgectLenarApplication {
 
     public static void main(String[] args) {

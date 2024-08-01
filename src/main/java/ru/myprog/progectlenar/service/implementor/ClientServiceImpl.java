@@ -28,6 +28,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public ClientInfo getClientById(int id) {
         Optional<ClientInfo> optionalClient = clientRepository.findById(id);
+        // todo можешь сделать сразу через ретурн и orElse
         if (optionalClient.isPresent()) {
             return optionalClient.get();
         }else {

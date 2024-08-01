@@ -13,6 +13,7 @@ import ru.myprog.progectlenar.service.implementor.SendService;
 import java.util.List;
 
 @RestController
+// todo а зачем автовайрд? всё и без него работает
 @RequiredArgsConstructor(onConstructor_ = {@Autowired})
 @RequestMapping("/api/v2")
 @Tag(name = "Контроллер SMS сервиса адаптера")
@@ -21,9 +22,16 @@ public class UsersController {
     private final SendService sendService;
 
 
+    // todo не оч важное замечание
+    //      чаще всего нейминг запроса пишут через тире
+    //      например, get-clients
     @GetMapping("/getClients")
     @Operation(summary = "Получение списка всех клиентов")
+    // todo возвращать энтити в контроллере не оч хорошо
+    //      для этого используют отдельные дто, плюсом к ней нужно подключить сваггер
+    //      для маппинга в дто, например, используется mapstruct (чаще всего)
     public List<ClientInfo> getAllClients() {
+        // todo сделай сразу return
         List<ClientInfo> clients = clientService.getAllClients();
         return clients;
     }
@@ -34,6 +42,9 @@ public class UsersController {
         return clientService.getClientById(id);
     }
 
+
+    // todo странное решение, чем руководствовался
+    //      чтобы оставить крону в контроллере?
     @Scheduled(cron = "0 0 0-19 * * *")
     @PostMapping("/kafka/send")
     public void send() {

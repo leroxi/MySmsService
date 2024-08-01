@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Entity
 @EqualsAndHashCode
 @NoArgsConstructor
+// todo таблы обычно называются либо большими буквами like CLIENTS
+//      либо маленькими
 @Table(name = "Clients")
 public class ClientInfo {
     @Id
@@ -28,6 +30,7 @@ public class ClientInfo {
     @Column(name = "message_send")
     private boolean messageSend;
 
+    // todo а почему бы тебе AllArgsConstructor тут не сделать?
     public ClientInfo(int id, String fullName, String phone, LocalDate birthday, boolean messageSend) {
         this.id = id;
         this.fullName = fullName;
