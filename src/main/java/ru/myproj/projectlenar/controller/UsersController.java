@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
-import ru.myproj.projectlenar.model.Client;
+import ru.myproj.projectlenar.model.ClientInfo;
 import ru.myproj.projectlenar.services.implementor.ClientServiceImpl;
 import ru.myproj.projectlenar.services.SendService;
 
@@ -21,13 +21,13 @@ public class UsersController {
 
     @GetMapping("/get-сlients")
     @Operation(summary = "Получение списка всех клиентов")
-    public List<Client> getAllClients() {
+    public List<ClientInfo> getAllClients() {
         return clientService.getAllClients();
     }
 
     @GetMapping("/get-сlient/{id}")
     @Operation(summary = "Получение одного клиента по его ID")
-    public Client getClientById(@PathVariable int id) {
+    public ClientInfo getClientById(@PathVariable int id) {
         return clientService.getClientById(id);
     }
 

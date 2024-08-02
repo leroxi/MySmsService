@@ -1,14 +1,15 @@
 package ru.myproj.projectlenar.model;
 
 
+import lombok.Data;
+
 import java.time.LocalDate;
 
-public record ClientInfo(
-        String fullName,
-        String phone,
-        LocalDate birthday,
-        boolean messageSend) {
-
+@Data
+public class ClientInfo {
+    private String fullName;
+    private String phone;
+    private LocalDate birthday;
+    private boolean messageSend;
 }
-
 

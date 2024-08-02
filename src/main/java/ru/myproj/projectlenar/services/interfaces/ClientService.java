@@ -6,9 +6,9 @@ import ru.myproj.projectlenar.model.ClientInfo;
 import java.util.List;
 
 public interface ClientService {
-    List<Client> getAllClients();
+    List<ClientInfo > getAllClients();
 
-    Client getClientById(int id);
+    ClientInfo  getClientById(int id);
 
-    void addAllClients(List<Client> clients);
+    void addAllClients(List<ClientInfo > clients);
 }
