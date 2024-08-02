@@ -1,38 +1,35 @@
-feign:
-  hystrix:
-    enabled: false
-# todo а зачем? у тебя там не тяжёлый запрос
-clientApp:
-  feign:
-    client:
-      config:
-        default:
-          connectTimeout: 5000
-          readTimeout: 5000
 server:
   port: 8080
+
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
-  main:
-    allow-circular-references: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/Clients
+    url: jdbc:postgresql://localhost:5432/CLIENTS
     username: root
     password: 123
     driver-class-name: org.postgresql.Driver
   jpa:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     sql:
       init:
         mode: always
-        # todo а как добавлять новые поля? миграции не сделал. Можешь глянуть в сторону flyway
         schema-locations: classpath:database/initDB.sql
         data-locations: classpath:database/populateDB.sql
+  liquibase:
+    enabled: true
+    change-log: classpath:/db/changelog/db.changelog-master.yaml
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  main:
+    allow-circular-references: true
+  feign:
+    hystrix:
+      enabled: false
+
 app:
   discount: 10
+
 clients:
   url: http://localhost:8081

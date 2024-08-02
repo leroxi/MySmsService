@@ -1,0 +1,41 @@
+package ru.myproj.projectlenar.controller;
+
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.web.bind.annotation.*;
+import ru.myproj.projectlenar.model.Client;
+import ru.myproj.projectlenar.services.implementor.ClientServiceImpl;
+import ru.myproj.projectlenar.services.SendService;
+
+import java.util.List;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/v2")
+@Tag(name = "Контроллер SMS сервиса адаптера")
+public class UsersController {
+    private final ClientServiceImpl clientService;
+    private final SendService sendService;
+
+    @GetMapping("/get-сlients")
+    @Operation(summary = "Получение списка всех клиентов")
+    public List<Client> getAllClients() {
+        return clientService.getAllClients();
+    }
+
+    @GetMapping("/get-сlient/{id}")
+    @Operation(summary = "Получение одного клиента по его ID")
+    public Client getClientById(@PathVariable int id) {
+        return clientService.getClientById(id);
+    }
+
+    // todo странное решение, чем руководствовался
+    //      чтобы оставить крону в контроллере?
+    @Scheduled(cron = "0 0 0-19 * * *")
+    @PostMapping("/kafka/send")
+    public void send() {
+        sendService.send();
+    }
+}
