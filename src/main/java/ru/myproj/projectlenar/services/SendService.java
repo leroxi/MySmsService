@@ -5,12 +5,10 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import ru.myproj.projectlenar.kafka.KafkaProducer;
 import ru.myproj.projectlenar.mapper.ClientMapping;
-import ru.myproj.projectlenar.model.Client;
 import ru.myproj.projectlenar.model.ClientInfo;
 import ru.myproj.projectlenar.services.implementor.ClientServiceImpl;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -23,11 +21,6 @@ public class SendService {
 
     public void send() {
         List<ClientInfo> clients = clientService.getAllClients();
-//        List<Client> clients = clientService
-//                .getAllClients()
-//                .stream()
-//                .map(clientMapping::toClient)
-//                .collect(Collectors.toList());
         if (clients.isEmpty()) {
             return;
         }

@@ -3,7 +3,6 @@ package ru.myproj.projectlenar.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.*;
 import ru.myproj.projectlenar.model.ClientInfo;
 import ru.myproj.projectlenar.services.implementor.ClientServiceImpl;
@@ -31,9 +30,6 @@ public class UsersController {
         return clientService.getClientById(id);
     }
 
-    // todo странное решение, чем руководствовался
-    //      чтобы оставить крону в контроллере?
-    @Scheduled(cron = "0 0 0-19 * * *")
     @PostMapping("/kafka/send")
     public void send() {
         sendService.send();
