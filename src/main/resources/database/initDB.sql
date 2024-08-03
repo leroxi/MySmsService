@@ -1,3 +1,4 @@
+-- TODO удаляй, если есть в миграции
 CREATE TABLE IF NOT EXISTS CLIENTS
 (
     id SERIAL PRIMARY KEY ,

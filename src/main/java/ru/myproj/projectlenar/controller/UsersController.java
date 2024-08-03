@@ -18,12 +18,14 @@ public class UsersController {
     private final ClientServiceImpl clientService;
     private final SendService sendService;
 
+    // todo А ты пробовал вызвать ручку эту?
     @GetMapping("/get-сlients")
     @Operation(summary = "Получение списка всех клиентов")
     public List<ClientInfo> getAllClients() {
         return clientService.getAllClients();
     }
 
+    // todo А ты пробовал вызвать ручку эту?
     @GetMapping("/get-сlient/{id}")
     @Operation(summary = "Получение одного клиента по его ID")
     public ClientInfo getClientById(@PathVariable int id) {

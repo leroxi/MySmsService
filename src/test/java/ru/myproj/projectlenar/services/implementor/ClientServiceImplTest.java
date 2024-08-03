@@ -20,7 +20,8 @@
 //import java.util.List;
 //import java.util.Optional;
 //import java.util.stream.Collectors;
-//
+// todo а чо так?
+
 //@ExtendWith(MockitoExtension.class)
 //public class ClientServiceImplTest {
 //    @Mock

@@ -17,6 +17,7 @@ public class SendService {
     private final ClientServiceImpl clientService;
     private final ClientMapping clientMapping;
     @Value("${app.discount}")
+    // todo сделай проперти
     private int discount;
 
     public void send() {

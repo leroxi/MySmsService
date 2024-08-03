@@ -18,6 +18,7 @@
 //import java.time.LocalDate;
 //import java.util.List;
 //
+// todo а чо так?
 //@ExtendWith(MockitoExtension.class)
 //public class SendServiceTest {
 //    @Mock
