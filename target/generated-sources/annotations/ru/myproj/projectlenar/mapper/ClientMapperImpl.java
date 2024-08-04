@@ -7,7 +7,7 @@ import ru.myproj.projectlenar.model.ClientInfo;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-04T19:34:09+0300",
+    date = "2024-08-04T20:06:10+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
 )
 @Component
@@ -38,7 +38,9 @@ public class ClientMapperImpl implements ClientMapper {
 
         Client client = new Client();
 
-        client.setId( clientInfo.getId() );
+        if ( clientInfo.getId() != null ) {
+            client.setId( clientInfo.getId() );
+        }
         client.setFullName( clientInfo.getFullName() );
         client.setPhone( clientInfo.getPhone() );
         client.setBirthday( clientInfo.getBirthday() );
