@@ -1,6 +1,3 @@
-# todo дропай sql файлы тогда
-#     а чо ликвибейз, а не флайвей?
-#     если работает, то заебись, просто флайвей сильно приятнее
 databaseChangeLog:
   - changeSet:
       id: 1
@@ -37,3 +34,57 @@ databaseChangeLog:
                   type: boolean
                   constraints:
                     nullable: false
+  - changeSet:
+      id: 2
+      author: lenar
+      preConditions:
+        onFail: CONTINUE
+        sqlCheck:
+          expectedResult: 0
+          sql: "SELECT count(*) FROM CLIENTS WHERE id = 1"
+      changes:
+        - insert:
+            tableName: CLIENTS
+            columns:
+              - column:
+                  name: id
+                  value: 1
+              - column:
+                  name: full_name
+                  value: 'Andrey Golkov'
+              - column:
+                  name: phone
+                  value: '+79274533217'
+              - column:
+                  name: birthday
+                  value: '1995-07-03'
+              - column:
+                  name: message_send
+                  value: false
+  - changeSet:
+      id: 3
+      author: lenar
+      preConditions:
+        onFail: CONTINUE
+        sqlCheck:
+          expectedResult: 0
+          sql: "SELECT count(*) FROM CLIENTS WHERE id = 2"
+      changes:
+        - insert:
+            tableName: CLIENTS
+            columns:
+              - column:
+                  name: id
+                  value: 2
+              - column:
+                  name: full_name
+                  value: 'Nora Bendich'
+              - column:
+                  name: phone
+                  value: '89065432107'
+              - column:
+                  name: birthday
+                  value: '1992-07-27'
+              - column:
+                  name: message_send
+                  value: true

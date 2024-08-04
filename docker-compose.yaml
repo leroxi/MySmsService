@@ -7,13 +7,12 @@ services:
       - "2181:2181"
   kafka:
     image: wurstmeister/kafka
-    container_name: MyContainer5
+    container_name: kafka
     ports:
       - "9092:9092"
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: localhost
+      KAFKA_ADVERTISED_HOST_NAME: kafka
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-
   postgres:
     image: postgres:16
     container_name: postgres
@@ -26,7 +25,6 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
       - ./initdb:/docker-entrypoint-initdb.d/
-
   app:
     depends_on:
       - kafka
@@ -34,11 +32,11 @@ services:
     build: ./
     restart: on-failure
     ports:
-      - 8080:8080
+      - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/CLIENTS
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_PASSWORD: 123
-
+      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
 volumes:
   pgdata:

@@ -5,8 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
-
-@Data
+@EqualsAndHashCode
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,4 +24,45 @@ public class Client {
     private LocalDate birthday;
     @Column(name = "message_send")
     private boolean messageSend;
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public boolean isMessageSend() {
+        return messageSend;
+    }
+
+    public void setMessageSend(boolean messageSend) {
+        this.messageSend = messageSend;
+    }
 }
+
+

@@ -5,7 +5,7 @@ package ru.myproj.projectlenar.services.implementor;
 import lombok.AllArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import ru.myproj.projectlenar.mapper.ClientMapping;
+import ru.myproj.projectlenar.mapper.ClientMapper;
 import ru.myproj.projectlenar.model.Client;
 import ru.myproj.projectlenar.model.ClientInfo;
 import ru.myproj.projectlenar.repository.ClientRepository;
@@ -21,25 +21,27 @@ import java.util.stream.Collectors;
 public class ClientServiceImpl implements ClientService {
     private final ClientsFeignClient clientsFeignClient;
     private final ClientRepository clientRepository;
-    private final ClientMapping clientMapping;
+    private final ClientMapper clientMapper;
 
 
     @Override
     public List<ClientInfo> getAllClients() {
-        return clientRepository.findAll().stream().map(clientMapping::toClientInfo).collect(Collectors.toList());
+        return clientRepository.findAll().stream()
+                .map(clientMapper::toClientInfo)
+                .collect(Collectors.toList());
     }
 
     @Override
     public ClientInfo getClientById(int id) {
         return clientRepository
                 .findById(id)
-                .map(clientMapping::toClientInfo)
+                .map(clientMapper::toClientInfo)
                 .orElse(null);
     }
 
     @Override
     public void addAllClients(List<ClientInfo> clients) {
-        List<Client> entities = clients.stream().map(clientMapping::toClient).collect(Collectors.toList());
+        List<Client> entities = clients.stream().map(clientMapper::toClient).collect(Collectors.toList());
         clientRepository.saveAll(entities);
     }
 
@@ -49,7 +51,7 @@ public class ClientServiceImpl implements ClientService {
         List<Client> filteredClients = clients.stream()
                 .filter(client -> client.getPhone().endsWith("7"))
                 .filter(client -> client.getBirthday().getMonth() == LocalDate.now().getMonth())
-                .map(clientMapping::toClient)
+                .map(clientMapper::toClient)
                 .collect(Collectors.toList());
         clientRepository.saveAll(filteredClients);
     }
