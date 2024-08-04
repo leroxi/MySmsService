@@ -23,3 +23,4 @@ public class ClientInfo {
     @Schema(description = "Статус отправленного сообщения клиенту")
     private boolean messageSend;
 }
+
