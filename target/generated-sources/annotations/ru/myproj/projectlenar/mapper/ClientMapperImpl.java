@@ -7,7 +7,7 @@ import ru.myproj.projectlenar.model.ClientInfo;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-08-04T17:49:07+0300",
+    date = "2024-08-04T19:34:09+0300",
     comments = "version: 1.5.5.Final, compiler: javac, environment: Java 22.0.2 (Oracle Corporation)"
 )
 @Component
