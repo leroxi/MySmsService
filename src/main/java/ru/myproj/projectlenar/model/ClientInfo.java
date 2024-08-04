@@ -23,6 +23,7 @@ public class ClientInfo {
     @Schema(description = "Статус отправленного сообщения клиенту")
     private boolean messageSend;
 
+    // todo аннотация Data
     public Integer getId() {
         return id;
     }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+
 @EqualsAndHashCode
 @Entity
 @AllArgsConstructor
@@ -28,6 +29,7 @@ public class Client {
         return id;
     }
 
+    // todo аннотация Data
     public void setId(Integer id) {
         this.id = id;
     }
