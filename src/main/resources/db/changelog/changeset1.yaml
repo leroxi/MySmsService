@@ -87,4 +87,4 @@ databaseChangeLog:
                   value: '1992-07-27'
               - column:
                   name: message_send
-                  value: true
+                  value: false

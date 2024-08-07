@@ -31,7 +31,8 @@ public class UsersController {
     }
 
     @PostMapping("/kafka/send")
-    public void send() {
+    public String send() {
         sendService.send();
+        return "Success";
     }
 }

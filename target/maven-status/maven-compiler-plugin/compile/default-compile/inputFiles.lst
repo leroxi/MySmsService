@@ -1,0 +1,15 @@
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\ClientsFeignClient.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\configs\AppProperties.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\controller\UsersController.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\kafka\KafkaConfiguration.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\kafka\KafkaProducer.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\mapper\ClientMapper.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\model\Client.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\model\ClientInfo.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\ProjectLenarApplication.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\repository\ClientRepository.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\services\implementor\ClientServiceImpl.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\services\interfaces\ClientService.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\services\ScheduledTasksService.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\services\SendService.java
+C:\Users\ROG\IdeaProjects\MySmsService\src\main\java\ru\myproj\projectlenar\swaggerConfig\SwaggerConfiguration.java
